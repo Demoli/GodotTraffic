@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://dw7qff8whsgi6"]
+
+[ext_resource type="Script" path="res://Player.gd" id="1_pqbqv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qo1wb"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_cef5o"]
+size = Vector2(20, 20)
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_pqbqv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_qo1wb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("PlaceholderTexture2D_cef5o")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+navigation_layers = 3
+
+[node name="LLabel" type="Label" parent="."]
+offset_left = -7.0
+offset_top = -29.0
+offset_right = 8.0
+offset_bottom = -3.0
+text = "L"
+horizontal_alignment = 1
+
+[node name="RLabel" type="Label" parent="."]
+offset_left = -8.0
+offset_top = 5.0
+offset_right = 7.0
+offset_bottom = 31.0
+text = "R"
+horizontal_alignment = 1
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(50, 0)

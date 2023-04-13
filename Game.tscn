@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://48a838fdg71k"]
+
+[ext_resource type="PackedScene" uid="uid://dw7qff8whsgi6" path="res://Player.tscn" id="2_1puxr"]
+[ext_resource type="PackedScene" uid="uid://2j5mrq40j26e" path="res://tiles/Map1.tscn" id="2_b5psv"]
+
+[node name="Game" type="Node2D"]
+
+[node name="Map1" parent="." instance=ExtResource("2_b5psv")]
+
+[node name="Player" parent="." instance=ExtResource("2_1puxr")]
+position = Vector2(619, 857)
