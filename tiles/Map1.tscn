@@ -1,6 +1,54 @@
-[gd_scene load_steps=2 format=3 uid="uid://2j5mrq40j26e"]
+[gd_scene load_steps=10 format=3 uid="uid://2j5mrq40j26e"]
 
 [ext_resource type="TileSet" uid="uid://dkaw500de7yrd" path="res://tiles/Roads.tres" id="1_3pgwp"]
+
+[sub_resource type="Curve2D" id="Curve2D_wua2s"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 780, 860, 0, 0, 0, 0, 850, 860, 0, 0, 0, 0, 850, 760)
+}
+point_count = 3
+
+[sub_resource type="Curve2D" id="Curve2D_ug6qs"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 776, 853, 0, 0, 0, 0, 849, 852, 0, 0, 0, 0, 849, 899)
+}
+point_count = 3
+
+[sub_resource type="Curve2D" id="Curve2D_b3gwc"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 902, 813, 0, 0, 0, 0, 807, 812, 0, 0, 0, 0, 808, 912)
+}
+point_count = 3
+
+[sub_resource type="Curve2D" id="Curve2D_ov55h"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 901, 812, 0, 0, 0, 0, 857, 812, 0, 0, 0, 0, 855, 762)
+}
+point_count = 3
+
+[sub_resource type="Curve2D" id="Curve2D_r76fb"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 855, 887, 0, 0, 0, 0, 856, 854, 0, 0, 0, 0, 915, 854)
+}
+point_count = 3
+
+[sub_resource type="Curve2D" id="Curve2D_7cl5b"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 855, 893, 0, 0, 0, 0, 858, 817, 0, 0, 0, 0, 775, 817)
+}
+point_count = 3
+
+[sub_resource type="Curve2D" id="Curve2D_lu8yr"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 857, 778, 0, 0, 0, 0, 855, 854, 0, 0, 0, 0, 893, 854)
+}
+point_count = 3
+
+[sub_resource type="Curve2D" id="Curve2D_o2i2s"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 854, 780, 0, 0, 0, 0, 856, 815, 0, 0, 0, 0, 773, 815)
+}
+point_count = 3
 
 [node name="Map1" type="TileMap"]
 texture_filter = 1
@@ -14,3 +62,36 @@ layer_1/y_sort_enabled = false
 layer_1/y_sort_origin = 0
 layer_1/z_index = 0
 layer_1/tile_data = PackedInt32Array()
+
+[node name="RightToUp" type="Path2D" parent="."]
+visible = false
+position = Vector2(0, -6)
+curve = SubResource("Curve2D_wua2s")
+
+[node name="RightToDown" type="Path2D" parent="."]
+visible = false
+curve = SubResource("Curve2D_ug6qs")
+
+[node name="LeftToDown" type="Path2D" parent="."]
+visible = false
+curve = SubResource("Curve2D_b3gwc")
+
+[node name="LeftToUp" type="Path2D" parent="."]
+visible = false
+curve = SubResource("Curve2D_ov55h")
+
+[node name="UpToRight" type="Path2D" parent="."]
+visible = false
+curve = SubResource("Curve2D_r76fb")
+
+[node name="UpToLeft" type="Path2D" parent="."]
+visible = false
+curve = SubResource("Curve2D_7cl5b")
+
+[node name="DownToRight" type="Path2D" parent="."]
+visible = false
+curve = SubResource("Curve2D_lu8yr")
+
+[node name="DownToLeft" type="Path2D" parent="."]
+visible = false
+curve = SubResource("Curve2D_o2i2s")

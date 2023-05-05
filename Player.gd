@@ -1,7 +1,8 @@
 extends CharacterBody2D
 
 var movement_speed: float = 400.0
-var movement_target_position: Vector2
+var movement_target: Vector2
+var prev_movement_target: Vector2
 
 @onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
 @onready var tilemap : TileMap = get_node("../Map1")
@@ -34,54 +35,40 @@ func _input(event):
 		
 
 func set_movement_target(movement_target: Vector2):
-	movement_target_position = movement_target
+	movement_target = movement_target
 	navigation_agent.target_position = movement_target
 
 func _physics_process(_delta):
-	
-#	var c = navigation_agent.get_current_navigation_path()
-#	if not c.size():
-#		return
-
 	if navigation_agent.is_navigation_finished():
 		return
 
 	var current_agent_position: Vector2 = global_transform.origin
 	var next_path_position: Vector2 = navigation_agent.get_next_path_position()
-	
-	var new_velocity: Vector2 = next_path_position - current_agent_position
-	new_velocity = new_velocity.normalized()
-	new_velocity = new_velocity * movement_speed
+	next_path_position = next_path_position.round()
 
 	tile = tilemap.get_cell_tile_data(0, tilemap.local_to_map(position))
 	var can_turn = tile.get_custom_data("can_turn")
 	var target_direction = position.direction_to(next_path_position).round()
 	
-	if can_turn and target_direction != direction:
-		if direction == Vector2.RIGHT and target_direction == Vector2.DOWN:
-			## turn right
-			pass
+	if can_turn and tile != last_tile:
+		print(target_direction)
 		if direction == Vector2.RIGHT and target_direction == Vector2.UP:
-			## turn left, with lange change
-			_switch_lane()
-			pass
-#		if direction == Vector2.UP and target_direction == Vector2.LEFT:
-#			## u turn, with lange change
-#			pass
-#		if direction == Vector2.DOWN and target_direction == Vector2.UP:
-#			pass
-		
-		direction = target_direction
-		
+			prev_movement_target = movement_target
+			movement_target = position + Vector2(128 - 10, 0)
+			set_movement_target(movement_target)
+			next_path_position = navigation_agent.get_next_path_position()
+	
+	if prev_movement_target != Vector2() and position.distance_to(next_path_position) < 5:
+		set_movement_target(prev_movement_target)
+		prev_movement_target = Vector2()
+		next_path_position = navigation_agent.get_next_path_position()
+	
+	var new_velocity: Vector2 = next_path_position - current_agent_position
+	new_velocity = new_velocity.normalized()
+	new_velocity = new_velocity * movement_speed
+
+	direction = target_direction
 
 	set_velocity(new_velocity)
-
 	move_and_slide()
-	
 	look_at(position + direction)
-	
-func _switch_lane():
-	if	last_tile != tile:
-		lane = 1 if lane == 0 else 0
-		$NavigationAgent2D.set_navigation_map(tilemap.get_navigation_map(lane))
-		last_tile = tile
